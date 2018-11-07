@@ -1,7 +1,9 @@
 #### Ghoul Grinder
 nodejs and npm  
-`curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -`  
-`sudo apt install -y nodejs`  
+```
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -    
+sudo apt install -y nodejs  
+```  
   
 apache2  
 `sudo apt install apache2`  
@@ -18,3 +20,16 @@ cd server
 npm init
 npm install
 ```
+
+install and set up user for mysql
+```
+sudo apt install mysql-server
+sudo mysql -u root
+mysql> USE mysql;
+mysql> CREATE USER 'YOUR_SYSTEM_USER'@'localhost' IDENTIFIED BY '';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'YOUR_SYSTEM_USER'@'localhost';
+mysql> UPDATE user SET plugin='auth_socket' WHERE User='YOUR_SYSTEM_USER';
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+```
+In the future, use mysql simply with `mysql` from command line
