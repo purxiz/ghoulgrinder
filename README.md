@@ -33,3 +33,11 @@ mysql> FLUSH PRIVILEGES;
 mysql> exit;
 ```
 In the future, use mysql simply with `mysql` from command line
+Also, it is best practice to make a non-root database user for node-js
+```
+CREATE DATABASE ghoulgrinder;
+CREATE USER 'ghoulgrinder'@'localhost' IDENTIFIED BY 'dev_secret';
+GRANT ALL PRIVILEGES ON ghoulgrinder . * TO 'ghoulgrinder'@'localhost';
+FLUSH PRIVILEGES;
+```
+Do note we really shouldn't grant all privileges, but that's a better coding practice thing so I'm just an idiot.
