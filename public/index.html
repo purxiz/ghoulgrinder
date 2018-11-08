@@ -13,7 +13,7 @@
     exampleSocket.onopen = () => {
       exampleSocket.send("Here's some text that the server is urgently awaiting!");
     }
-    exampleSocket.onmessage = e => {
+    exampleSocket.onmessage = (e) => {
       console.log(e.data)
     }
   </script>

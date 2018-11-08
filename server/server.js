@@ -6,9 +6,9 @@ const WebSocket = require('express-ws')
 WebSocket(app)
 
 app.ws('/echo', (ws, req) => {
-  ws.on('message', msg => {
+  ws.on('message', (msg) => {
     ws.send(msg)
-    console.log('message received')
+    console.log('message received');
   })
 
   ws.on('close', () => {
@@ -27,7 +27,7 @@ var connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) {
     console.error(err.stack)
-    return
+    return;
   }
 
   console.log('connected as id ' + connection.threadId);
