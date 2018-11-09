@@ -8,11 +8,11 @@ WebSocket(app)
 app.ws('/echo', (ws, req) => {
   ws.on('message', (msg) => {
     ws.send(msg)
-    console.log('message received');
+    console.log('gg: message received')
   })
 
   ws.on('close', () => {
-    console.log('WebSocket was closed')
+    console.log('gg: WebSocket was closed')
   })
 })
 
@@ -27,10 +27,10 @@ var connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) {
     console.error(err.stack)
-    return;
+    return
   }
 
-  console.log('connected as id ' + connection.threadId);
+  console.log('gg: connected as id ' + connection.threadId);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
