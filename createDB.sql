@@ -53,7 +53,7 @@ CREATE TABLE domains  (
 
 CREATE TABLE structures (
   sId INT NOT NULL,
-  sType VARCHAR(40) NOT NULL,
+  sType INT NOT NULL,
   PRIMARY KEY(sId)
 );
 
@@ -65,7 +65,7 @@ CREATE TABLE structure_recipes  (
 
 CREATE TABLE items  (
   iId INT NOT NULL,
-  iType VARCHAR(40),
+  iType INT,
   iNode POINT,
-  PRIMARY KEY(iId)
+  PRIMARY KEY(iNode)
 );
