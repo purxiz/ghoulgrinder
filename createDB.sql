@@ -58,7 +58,7 @@ CREATE TABLE structures (
 );
 
 CREATE TABLE structure_recipes  (
-  srId INT NOT NULL,
+  sId INT NOT NULL,
   srType INT NOT NULL,
   FOREIGN KEY (sId) REFERENCES structures(sId)
 );
