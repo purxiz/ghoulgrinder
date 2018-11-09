@@ -10,10 +10,13 @@ WebSocket(app)
 
 
 ;(async () => {
-  //console.log(await game.getUsers())
+  console.log(await game.getUsers())
 })()
 
-;game.fillUpAccounts(100);
+;(async () => {
+  console.log(await game.getVehicleRouteSteps())
+})()
+
 
 app.ws('/echo', (ws, req) => {
   ws.on('message', (msg) => {
