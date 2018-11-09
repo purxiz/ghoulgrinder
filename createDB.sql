@@ -64,8 +64,9 @@ CREATE TABLE structure_recipes  (
 );
 
 CREATE TABLE items  (
-  iId INT NOT NULL,
+  iId INT NOT NULL AUTO_INCREMENT,
   iType INT,
   iNode POINT,
+  UNIQUE KEY(iId),
   PRIMARY KEY(iNode)
 );
