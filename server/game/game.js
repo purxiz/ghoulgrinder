@@ -13,4 +13,7 @@ connection.connect((err) => {
   }
   console.log('gg: connected as id ' + connection.threadId);
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 86f0e38b4175408a9685500c2c2fcaf2028ff79d

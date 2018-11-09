@@ -7,15 +7,20 @@ const port = 3000
 const WebSocket = require('express-ws')
 WebSocket(app)
 
-//game.getUsers().then(results => {
-//  console.log(results)
-//})
+
 
 ;(async () => {
   console.log(await game.getUsers())
 })()
 
 ;(async () => {
+<<<<<<< HEAD
+  console.log(await game.getUsers())
+})()
+
+;(async () => {
+=======
+>>>>>>> 86f0e38b4175408a9685500c2c2fcaf2028ff79d
   console.log(await game.getVehicleRouteSteps())
 })()
 
