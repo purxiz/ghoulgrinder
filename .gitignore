@@ -2,6 +2,7 @@
 server/node_modules
 server/package-lock.json
 server/.tern_project
+server/turnin.js
 
 # vscode info
 .vscode
