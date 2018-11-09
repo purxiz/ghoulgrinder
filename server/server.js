@@ -7,9 +7,7 @@ const port = 3000
 const WebSocket = require('express-ws')
 WebSocket(app)
 
-//game.getUsers().then(results => {
-//  console.log(results)
-//})
+
 
 ;(async () => {
   //console.log(await game.getUsers())
