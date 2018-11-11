@@ -1,34 +1,37 @@
-var express = require('express')
-var game = require('./game/game')
+const express = require('express')
 const app = express()
 const port = 3000
+
+const structures = require('./../shared/objects/structures')
+
+var mysql = require('mysql')
+var connection = mysql.createConnection({
+  socketPath: '/var/run/mysqld/mysqld.sock',
+  user: 'ghoulgrinder',
+  password: 'dev_secret',
+  database: 'ghoulgrinder'
+})
+
+connection.connect((err) => {
+  if (err) {
+    console.error(err.stack)
+    return
+  }
+  console.log('gg: connected as id ' + connection.threadId);
+})
 
 
 const WebSocket = require('express-ws')
 WebSocket(app)
 
-
-
-;(async () => {
-  console.log(await game.getUsers())
-})()
-
-;(async () => {
-<<<<<<< HEAD
-  console.log(await game.getUsers())
-})()
-
-;(async () => {
-=======
->>>>>>> 86f0e38b4175408a9685500c2c2fcaf2028ff79d
-  console.log(await game.getVehicleRouteSteps())
-})()
-
-
 app.ws('/echo', (ws, req) => {
   ws.on('message', (msg) => {
-    ws.send(msg)
-    console.log('message received')
+    msg = JSON.parse(msg)
+    //Handle earlier protocols earlier if necessary
+    if(msg[0] < 40) {
+      console.log('received a build message')
+      structures.interpret(msg, connection)
+    }
   })
 
   ws.on('close', () => {
