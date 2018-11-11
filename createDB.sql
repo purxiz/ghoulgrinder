@@ -1,24 +1,47 @@
-CREATE TABLE vehicles (
-  vId INT NOT NULL AUTO_INCREMENT,
-  vType INT NOT NULL,
-  PRIMARY KEY(vId)
+CREATE DATABASE ghoulgrinder;
+USE ghoulgrinder;
+
+CREATE TABLE accounts (
+  aId INT NOT NULL AUTO_INCREMENT,
+  aEmail VARCHAR(40)NOT NULL,
+  aPassword VARCHAR(40) NOT NULL,
+  PRIMARY KEY(aId)
 );
 
-CREATE TABLE routes (
-  rId INT NOT NULL AUTO_INCREMENT,
-  vId INT NOT NULL,
-  PRIMARY KEY (rId),
-  FOREIGN KEY (vId) REFERENCES vehicles(vId)
-); 
+CREATE TABLE domains  (
+  dId INT NOT NULL AUTO_INCREMENT,
+  aId INT NOT NULL,
+  dName VARCHAR(40) NOT NULL,
+  PRIMARY KEY (dId),
+  FOREIGN KEY (aId) REFERENCES accounts(aId)
+);
+
+CREATE TABLE nodes (
+  nId INT NOT NULL AUTO_INCREMENT,
+  nType INT NOT NULL,
+  nLocation POINT NOT NULL,
+  PRIMARY KEY (nId)
+);
+
+CREATE TABLE vehicles (
+  vId INT NOT NULL AUTO_INCREMENT,
+  nId INT,
+  dId INT NOT NULL,
+  vType INT NOT NULL,
+  PRIMARY KEY(vId),
+  FOREIGN KEY(nId) REFERENCES nodes(nId),
+  FOREIGN KEY(dId) REFERENCES domains(dId)
+);
 
 CREATE TABLE route_steps (
   rsId INT NOT NULL AUTO_INCREMENT,
-  rId INT NOT NULL,
+  vId INT NOT NULL,
   rsStep INT NOT NULL,
-  rsStartNode POINT NOT NULL,
-  rsEndNode POINT NOT NULL,
+  rsProgress INT NOT NULL,
+  rsStartNode INT NOT NULL,
+  rsEndNode INT NOT NULL,
   PRIMARY KEY (rsId),
-  FOREIGN KEY (rId) REFERENCES routes(rId)
+  FOREIGN KEY (vId) REFERENCES vehicles(vId)
 );
 
 CREATE TABLE route_commands (
@@ -36,37 +59,18 @@ CREATE TABLE vehicle_holds (
   FOREIGN KEY (vId) REFERENCES vehicles(vId)
 );
 
-CREATE TABLE accounts (
-  aId INT NOT NULL AUTO_INCREMENT,
-  aEmail VARCHAR(40)NOT NULL,
-  aPassword VARCHAR(40) NOT NULL,
-  PRIMARY KEY(aId)
-);
-
-CREATE TABLE domains  (
-  dId INT NOT NULL AUTO_INCREMENT,
-  aId INT NOT NULL,
-  dName VARCHAR(40) NOT NULL,
-  PRIMARY KEY (dId),
-  FOREIGN KEY (aId) REFERENCES accounts(aId)
-);
-
 CREATE TABLE structures (
-  sId INT NOT NULL,
+  sId INT NOT NULL AUTO_INCREMENT,
+  nId INT NOT NULL,
   sType INT NOT NULL,
-  PRIMARY KEY(sId)
-);
-
-CREATE TABLE structure_recipes  (
-  sId INT NOT NULL,
-  srType INT NOT NULL,
-  FOREIGN KEY (sId) REFERENCES structures(sId)
+  sRecipe INT,
+  PRIMARY KEY(sId),
+  FOREIGN KEY(nId) REFERENCES nodes(nId),
+  UNIQUE (nId)
 );
 
 CREATE TABLE items  (
-  iId INT NOT NULL AUTO_INCREMENT,
-  iType INT,
-  iNode POINT,
-  UNIQUE KEY(iId),
-  PRIMARY KEY(iNode)
+  iType INT NOT NULL,
+  nId INT NOT NULL,
+  FOREIGN KEY (nId) REFERENCES nodes(nId)
 );
