@@ -1,5 +1,4 @@
 var Protocol = require('./../protocol')
-console.log(Protocol)
 
 class Structure {
   constructor(nId, sType) {
