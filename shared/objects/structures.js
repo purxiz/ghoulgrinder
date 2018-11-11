@@ -2,47 +2,69 @@ var Protocol = require('./../protocol')
 console.log(Protocol)
 
 class Structure {
-  constructor(nId, sType, sId) {
-    this.x = x
-    this.y = y
+  constructor(nId, sType) {
+    this.nId = nId
     this.sType = sType
-    this.sId = sId
   }
 
   set recipe(rType) {
     this.rType = rType
   }
-  
+
   update() {
-    
+
   }
 }
 
-structures_list = [];
+var structure_list = new Map;
 
-exports.interpret = (msg, connection) => {
-  console.log(msg[0])
-  console.log(Protocol.protocol.BUILD)
-  if(msg[0] === Protocol.protocol.BUILD){
-    console.log('hi')
-    addStructure(msg[1], msg[2], connection)
+exports.interpret = (msg, dId, connection) => {
+  switch (msg[0]) {
+    case Protocol.structures.BUILD:
+      addStructure(msg[1], msg[2], dId, connection)
+      break;
+    case Protocol.structures.DELETE:
+      delStructure(msg[1], connection)
+      break;
+    case Protocol.structures.RECIPE_SET:
+      setRecipe(msg[1], msg[2], connection)
+      break;
+    default:
   }
 }
 
-addStructure = (nId, sType, connection) => {
-  console.log('adding structure')
+addStructure = (nId, dId, sType, connection) => {
+  console.log('adding structure type ' + sType + ' at node ' + nId)
   let insertable = {
-    nId : connection.escape(nId),
-    sType : connection.escape(sType)
+    nId: connection.escape(nId),
+    dId: connection.escape(dId),
+    sType: connection.escape(sType)
   }
   connection.query('INSERT INTO structures SET ?', insertable, (err, res, fields) => {
-    if(err){
+    if (err) {
+      console.log(err)
       return false
     }
-    structure_list.push(new Structure(nId, sType, res.insertId))
+    structure_list.set(res.insertId, new Structure(nId, sType))
   })
 }
 
-setRecipe = (sId, sRecipe) => {
+delStructure = (sId, connection) => {
+  console.log('removing structure ' + sId)
+  connection.query('DELETE FROM structures WHERE sId=' + connection.escape(sId), (err, res, fields) => {
+    if (err) {
+      return false
+    }
+    structure_list.delete(sId)
+  })
+}
 
+setRecipe = (sId, sRecipe, connection) => {
+  console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
+  connection.query('UPDATE TABLE structures SET sRecipe=' + connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
+    if(err){
+      return false
+    }
+    structure_list.get(sId).setRecipe(sRecipe)
+  })
 }

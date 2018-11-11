@@ -62,11 +62,13 @@ CREATE TABLE vehicle_holds (
 CREATE TABLE structures (
   sId INT NOT NULL AUTO_INCREMENT,
   nId INT NOT NULL,
+  dId INT NOT NULL,
   sType INT NOT NULL,
   sRecipe INT,
   PRIMARY KEY(sId),
   FOREIGN KEY(nId) REFERENCES nodes(nId),
-  UNIQUE (nId)
+  UNIQUE (nId),
+  FOREIGN KEY(dId) REFERENCES domains(dId)
 );
 
 CREATE TABLE items  (

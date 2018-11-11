@@ -25,12 +25,14 @@ const WebSocket = require('express-ws')
 WebSocket(app)
 
 app.ws('/echo', (ws, req) => {
+  ws.id = 1
   ws.on('message', (msg) => {
+    console.log(ws.id)
     msg = JSON.parse(msg)
     //Handle earlier protocols earlier if necessary
     if(msg[0] < 40) {
       console.log('received a build message')
-      structures.interpret(msg, connection)
+      structures.interpret(msg, ws.id, connection)
     }
   })
 
