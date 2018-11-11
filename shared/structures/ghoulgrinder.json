@@ -1,0 +1,11 @@
+{
+  "name" : "Ghoul Grinder",
+  "sId" : 1,
+  "description" : "The GhoulGrinder is able to process ghouls into various different types of ghoul based items.",
+  "attributes" : {
+    "attr1" : "++wasteland",
+    "attr2" : "xForest",
+    "attr3" : "xLake",
+    "attr4" : "xSky"
+  }
+}
