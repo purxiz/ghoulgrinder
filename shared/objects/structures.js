@@ -1,4 +1,5 @@
 var Protocol = require('./../protocol')
+const db = require('./../../server/database')
 
 class Structure {
   constructor(nId, dId, sType) {
@@ -18,29 +19,29 @@ class Structure {
 
 var structure_list = new Map
 
-exports.interpret = (msg, dId, connection) => {
+exports.interpret = (msg, dId) => {
   switch (msg[0]) {
     case Protocol.structures.BUILD:
-      addStructure(msg[1], msg[2], dId, connection)
+      addStructure(msg[1], msg[2], dId)
       break
     case Protocol.structures.DELETE:
-      delStructure(msg[1], connection)
+      delStructure(msg[1])
       break
     case Protocol.structures.RECIPE_SET:
-      setRecipe(msg[1], msg[2], connection)
+      setRecipe(msg[1], msg[2])
       break
     default:
   }
 }
 
-addStructure = (nId, dId, sType, connection) => {
+addStructure = (nId, dId, sType) => {
   console.log('adding structure type ' + sType + ' at node ' + nId)
   let insertable = {
-    nId: connection.escape(nId),
-    dId: connection.escape(dId),
-    sType: connection.escape(sType)
+    nId: db.connection.escape(nId),
+    dId: db.connection.escape(dId),
+    sType: db.connection.escape(sType)
   }
-  connection.query('INSERT INTO structures SET ?', insertable, (err, res, fields) => {
+  db.connection.query('INSERT INTO structures SET ?', insertable, (err, res, fields) => {
     if (err) {
       console.log(err)
       return false
@@ -49,9 +50,9 @@ addStructure = (nId, dId, sType, connection) => {
   })
 }
 
-delStructure = (sId, connection) => {
+delStructure = (sId) => {
   console.log('removing structure ' + sId)
-  connection.query('DELETE FROM structures WHERE sId=' + connection.escape(sId), (err, res, fields) => {
+  db.connection.query('DELETE FROM structures WHERE sId=' + connection.escape(sId), (err, res, fields) => {
     if (err) {
       return false
     }
@@ -59,9 +60,9 @@ delStructure = (sId, connection) => {
   })
 }
 
-setRecipe = (sId, sRecipe, connection) => {
+setRecipe = (sId, sRecipe) => {
   console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
-  connection.query('UPDATE TABLE structures SET sRecipe=' + connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
+  db.connection.query('UPDATE TABLE structures SET sRecipe=' + connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
     if (err) {
       return false
     }

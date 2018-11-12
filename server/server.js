@@ -7,22 +7,6 @@ const loader = require('./game/object_loader')
 const structures = require('./../shared/objects/structures')
 const vehicles = require('./../shared/objects/vehicles')
 
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-  socketPath: '/var/run/mysqld/mysqld.sock',
-  user: 'ghoulgrinder',
-  password: 'dev_secret',
-  database: 'ghoulgrinder'
-})
-
-connection.connect((err) => {
-  if (err) {
-    console.error(err.stack)
-    return
-  }
-  console.log('gg: connected as id ' + connection.threadId);
-})
-
 
 const WebSocket = require('express-ws')
 WebSocket(app)
@@ -35,11 +19,11 @@ app.ws('/echo', (ws, req) => {
     //Handle earlier protocols earlier if necessary
     if (msg[0] < 30) {
       console.log('received a vehicle message')
-      vehicles.interpret(msg, ws.id, connection)
+      vehicles.interpret(msg, ws.id)
     }
     else if (msg[0] < 40) {
       console.log('received a structure message')
-      structures.interpret(msg, ws.id, connection)
+      structures.interpret(msg, ws.id)
     }
   })
 
