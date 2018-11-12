@@ -18,6 +18,9 @@ exports.interpret = (msg, dId, connection) => {
     case Protocol.vehicles.DELETE:
       delVehicle(msg[1], dId, connection)
       break
+    case Protocol.vehicles.ROUTE_ADD:
+      setRoute(msg[1], msg, dId, connection)
+      break
     default:
   }
 }
@@ -28,7 +31,7 @@ addVehicle = (nId, vType, dId, connection) => {
   let insertable = {
     nId: connection.escape(nId),
     dId: connection.escape(dId),
-    sType: connection.escape(vType)
+    vType: connection.escape(vType)
   }
   connection.query('INSERT INTO vehicles SET ?', insertable, (err, res, fields) => {
     if (err) {
@@ -49,10 +52,18 @@ delVehicle = (vId, dId, connection) => {
   })
 }
 
-setRoute = (vId, connection, ...steps) => {
+setRoute = (vId, msg, dId, connection) => {
   console.log('creating route for vehicle ' + vId) 
   let insertable = []
-  steps.forEach((step) => {
-    
+  console.log(insertable)
+  for(let i = 2, j = msg.length; i < j; ++i) {
+    insertable.push([vId, i-2, 0, msg[i][0], msg[i][1]])
+    console.log(insertable[i-2])
+  }
+  connection.query('INSERT INTO route_steps (vId, rsStep, rsProgress, rsStartNode, rsEndNode) VALUES ?', [insertable], (err, res, fields) => {
+    if(err) {
+      console.log(err)
+      return false
+    }
   })
 }

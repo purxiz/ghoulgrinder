@@ -6,7 +6,8 @@ exports.protocol = Object.freeze({
 exports.vehicles = Object.freeze({
   //vehicles 20-29
   BUILD: 20, //[20, nId, vType]
-  DELETE: 22 //[22, vId]
+  DELETE: 22, //[22, vId]
+  ROUTE_ADD: 23 //[23, vId, [n1, n2], [n2, n3] ...]
 })
 
 exports.structures = Object.freeze({
