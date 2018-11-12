@@ -46,4 +46,8 @@ app.ws('/echo', (ws, req) => {
   })
 })
 
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api/login', require('./routes/login'));
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
