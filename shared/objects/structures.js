@@ -16,19 +16,19 @@ class Structure {
   }
 }
 
-var structure_list = new Map;
+var structure_list = new Map
 
 exports.interpret = (msg, dId, connection) => {
   switch (msg[0]) {
     case Protocol.structures.BUILD:
       addStructure(msg[1], msg[2], dId, connection)
-      break;
+      break
     case Protocol.structures.DELETE:
       delStructure(msg[1], connection)
-      break;
+      break
     case Protocol.structures.RECIPE_SET:
       setRecipe(msg[1], msg[2], connection)
-      break;
+      break
     default:
   }
 }
@@ -45,7 +45,7 @@ addStructure = (nId, dId, sType, connection) => {
       console.log(err)
       return false
     }
-    structure_list.set(res.insertId, new Structure(nId, sType))
+    structure_list.set(res.insertId, new Structure(nId, did, sType))
   })
 }
 
@@ -62,7 +62,7 @@ delStructure = (sId, connection) => {
 setRecipe = (sId, sRecipe, connection) => {
   console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
   connection.query('UPDATE TABLE structures SET sRecipe=' + connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
-    if(err){
+    if (err) {
       return false
     }
     structure_list.get(sId).setRecipe(sRecipe)

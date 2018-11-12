@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 
 const structures = require('./../shared/objects/structures')
+const vehicles = require('./../shared/objects/vehicles')
 
 var mysql = require('mysql')
 var connection = mysql.createConnection({
@@ -30,8 +31,12 @@ app.ws('/echo', (ws, req) => {
     console.log(ws.id)
     msg = JSON.parse(msg)
     //Handle earlier protocols earlier if necessary
-    if(msg[0] < 40) {
-      console.log('received a build message')
+    if (msg[0] < 30) {
+      console.log('received a vehicle message')
+      vehicles.interpret(msg, ws.id, connection)
+    }
+    if (msg[0] < 40) {
+      console.log('received a structure message')
       structures.interpret(msg, ws.id, connection)
     }
   })
