@@ -72,9 +72,9 @@ do_the_rest = () => {
   //nodes
   insertable_nodes = []
   for (let i = 0; i < num_entries; i++) {
-    insertable_nodes.push([(Math.random() * 100) | 0, generatePoint()])
+    insertable_nodes.push([(Math.random() * 100) | 0, generatePoint(), (Math.random() * 100) | 0])
   }
-  connection.query('INSERT INTO nodes (nType, nLocation) VALUES ?', [insertable_nodes], (err, res, fields) => {
+  connection.query('INSERT INTO nodes (nType, nLocation, nChunk) VALUES ?', [insertable_nodes], (err, res, fields) => {
     if (err) {
       console.log(err)
     }

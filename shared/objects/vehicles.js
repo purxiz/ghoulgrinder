@@ -53,6 +53,7 @@ delVehicle = (vId, dId, connection) => {
 }
 
 setRoute = (vId, msg, dId, connection) => {
+  //TODO: recursively insert route commands
   console.log('creating route for vehicle ' + vId) 
   let insertable = []
   console.log(insertable)

@@ -20,6 +20,7 @@ CREATE TABLE nodes (
   nId INT NOT NULL AUTO_INCREMENT,
   nType INT NOT NULL,
   nLocation POINT NOT NULL,
+  nChunk INT NOT NULL,
   PRIMARY KEY (nId)
 );
 
