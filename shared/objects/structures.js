@@ -1,8 +1,9 @@
 var Protocol = require('./../protocol')
 
 class Structure {
-  constructor(nId, sType) {
+  constructor(nId, dId, sType) {
     this.nId = nId
+    this.dId = dId
     this.sType = sType
   }
 
