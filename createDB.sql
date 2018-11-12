@@ -73,6 +73,7 @@ CREATE TABLE structures (
 
 CREATE TABLE items  (
   iType INT NOT NULL,
+  iQuantity INT NOT NULL,
   nId INT NOT NULL,
   FOREIGN KEY (nId) REFERENCES nodes(nId)
 );

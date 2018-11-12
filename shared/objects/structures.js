@@ -1,8 +1,9 @@
 var Protocol = require('./../protocol')
 
 class Structure {
-  constructor(nId, sType) {
+  constructor(nId, dId, sType) {
     this.nId = nId
+    this.dId = dId
     this.sType = sType
   }
 
@@ -44,7 +45,7 @@ addStructure = (nId, dId, sType, connection) => {
       console.log(err)
       return false
     }
-    structure_list.set(res.insertId, new Structure(nId, sType))
+    structure_list.set(res.insertId, new Structure(nId, dId, sType))
   })
 }
 
