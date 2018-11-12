@@ -1,3 +1,8 @@
+exports.protocol = Object.freeze({
+  //User Related
+  'USER_ID' : 1
+})
+
 exports.vehicles = Object.freeze({
   //vehicles 20-29
   BUILD: 20, //[20, nId, vType]
