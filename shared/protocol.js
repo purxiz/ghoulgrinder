@@ -1,3 +1,9 @@
+exports.vehicles = Object.freeze({
+  //vehicles 20-29
+  BUILD: 20, //[20, nId, vType]
+  DELETE: 22 //[22, vId]
+})
+
 exports.structures = Object.freeze({
   //structures 30-39
   BUILD : 30, //[30, nId, sType]
@@ -5,7 +11,3 @@ exports.structures = Object.freeze({
   DELETE : 32 //[32, sId]
 })
 
-exports.vehicles = Object.freeze({
-  //vehicles 20-29
-  ROUTE_SET : 20
-})

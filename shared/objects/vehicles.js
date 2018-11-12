@@ -8,16 +8,51 @@ class Vehicle {
   }
 }
 
+var vehicle_list = new Map
+
 exports.interpret = (msg, dId, connection) => {
-  switch(msg[0]){
-    case Protocol.vehicles.ROUTE_SET:
-      setRoute(msg, dId, connection)
-    break;
+  switch (msg[0]) {
+    case Protocol.vehicles.BUILD:
+      addVehicle(msg[1], msg[2], dId, connection)
+      break
+    case Protocol.vehicles.DELETE:
+      delVehicle(msg[1], dId, connection)
+      break
+    default:
   }
 }
 
-setRoute = (msg, dId, connection) => {
-  for(let i = 0, length = msg.length; i < length; ++i){
 
+addVehicle = (nId, vType, dId, connection) => {
+  console.log('adding vehicles type ' + vType + ' at node ' + nId)
+  let insertable = {
+    nId: connection.escape(nId),
+    dId: connection.escape(dId),
+    sType: connection.escape(vType)
   }
+  connection.query('INSERT INTO vehicles SET ?', insertable, (err, res, fields) => {
+    if (err) {
+      console.log(err)
+      return false
+    }
+    vehicle_list.set(res.insertId, new Vehicle(nId, dId, vType))
+  })
+}
+
+delVehicle = (vId, dId, connection) => {
+  console.log('removing vehicle ' + vId)
+  connection.query('DELETE FROM vehicles WHERE vId=' + connection.escape(vId), (err, res, fields) => {
+    if (err) {
+      return false
+    }
+    vehicle_list.delete(vId)
+  })
+}
+
+setRoute = (vId, connection, ...steps) => {
+  console.log('creating route for vehicle ' + vId) 
+  let insertable = []
+  steps.forEach((step) => {
+    
+  })
 }
