@@ -34,38 +34,14 @@ exports.interpret = (msg, dId) => {
   }
 }
 
-addStructure = (nId, dId, sType) => {
-  console.log('adding structure type ' + sType + ' at node ' + nId)
-  let insertable = {
-    nId: db.connection.escape(nId),
-    dId: db.connection.escape(dId),
-    sType: db.connection.escape(sType)
-  }
-  db.connection.query('INSERT INTO structures SET ?', insertable, (err, res, fields) => {
-    if (err) {
-      console.log(err)
-      return false
-    }
-    structure_list.set(res.insertId, new Structure(nId, dId, sType))
-  })
+addStructure = (insertId, nId, dId, sType) => {
+    structure_list.set(insertId, new Structure(nId, dId, sType))
 }
 
 delStructure = (sId) => {
-  console.log('removing structure ' + sId)
-  db.connection.query('DELETE FROM structures WHERE sId=' + connection.escape(sId), (err, res, fields) => {
-    if (err) {
-      return false
-    }
     structure_list.delete(sId)
-  })
 }
 
 setRecipe = (sId, sRecipe) => {
-  console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
-  db.connection.query('UPDATE TABLE structures SET sRecipe=' + connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
-    if (err) {
-      return false
-    }
     structure_list.get(sId).setRecipe(sRecipe)
-  })
 }

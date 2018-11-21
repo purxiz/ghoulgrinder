@@ -5,7 +5,7 @@ const port = 3000
 const loader = require('./game/object_loader')
 
 const structures = require('./../shared/objects/structures')
-const vehicles = require('./../shared/objects/vehicles')
+const vehicles = require('./game/objects/vehicles')
 
 
 const WebSocket = require('express-ws')

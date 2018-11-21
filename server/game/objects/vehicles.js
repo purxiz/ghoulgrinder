@@ -1,31 +1,32 @@
 var Protocol = require('./../../../shared/protocol')
 var vehicles = require('./../../../shared/objects/vehicles')
+var db = require('./../../database')
 
-exports.interpret = (msg, dId, connection) => {
+exports.interpret = (msg, dId) => {
   switch (msg[0]) {
     case Protocol.vehicles.BUILD:
-      addVehicle(msg[1], msg[2], dId, connection)
+      addVehicle(msg[1], msg[2], dId)
       break
     case Protocol.vehicles.DELETE:
-      delVehicle(msg[1], dId, connection)
+      delVehicle(msg[1], dId)
       break
     case Protocol.vehicles.ROUTE_ADD:
-      setRoute(msg[1], msg, dId, connection)
+      setRoute(msg[1], msg, dId)
       break
     default:
   }
 }
 
 
-addVehicle = (nId, vType, dId, connection) => {
-  //Todo: check vId
+addVehicle = (nId, vType, dId) => {
+  //Todo: check if dId owns node 
   console.log('adding vehicles type ' + vType + ' at node ' + nId)
   let insertable = {
-    nId: connection.escape(nId),
-    dId: connection.escape(dId),
-    vType: connection.escape(vType)
+    nId: db.connection.escape(nId),
+    dId: db.connection.escape(dId),
+    vType: db.connection.escape(vType)
   }
-  connection.query('INSERT INTO vehicles SET ?', insertable, (err, res, fields) => {
+  db.connection.query('INSERT INTO vehicles SET ?', insertable, (err, res, fields) => {
     if (err) {
       console.log(err)
       return false
@@ -34,10 +35,10 @@ addVehicle = (nId, vType, dId, connection) => {
   })
 }
 
-delVehicle = (vId, dId, connection) => {
+delVehicle = (vId, dId) => {
   //TODO: check vId
   console.log('removing vehicle ' + vId)
-  connection.query('DELETE FROM vehicles WHERE vId=' + connection.escape(vId), (err, res, fields) => {
+  db.connection.query('DELETE FROM vehicles WHERE vId=' + db.connection.escape(vId), (err, res, fields) => {
     if (err) {
       return false
     }
@@ -45,7 +46,7 @@ delVehicle = (vId, dId, connection) => {
   })
 }
 
-setRoute = (vId, msg, dId, connection) => {
+setRoute = (vId, msg, dId) => {
   //TODO: recursively insert route commands
   console.log('creating route for vehicle ' + vId) 
   let insertable = []
@@ -54,7 +55,7 @@ setRoute = (vId, msg, dId, connection) => {
     insertable.push([vId, i-2, 0, msg[i][0], msg[i][1]])
     console.log(insertable[i-2])
   }
-  connection.query('INSERT INTO route_steps (vId, rsStep, rsProgress, rsStartNode, rsEndNode) VALUES ?', [insertable], (err, res, fields) => {
+  db.connection.query('INSERT INTO route_steps (vId, rsStep, rsProgress, rsStartNode, rsEndNode) VALUES ?', [insertable], (err, res, fields) => {
     if(err) {
       console.log(err)
       return false
