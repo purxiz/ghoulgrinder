@@ -15,7 +15,7 @@ exports.addVehicle = (insertId, nId, dId, vType) => {
   vehicle_list.set(insertId, new Vehicle(nId, dId, vType))
 }
 
-delVehicle = (vId) => {
+exports.delVehicle = (vId) => {
   console.log('removing vehicle ' + vId)
   vehicle_list.delete(vId)
 }

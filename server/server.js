@@ -4,7 +4,7 @@ const port = 3000
 
 const loader = require('./game/object_loader')
 
-const structures = require('./../shared/objects/structures')
+const structures = require('./game/objects/structures')
 const vehicles = require('./game/objects/vehicles')
 
 

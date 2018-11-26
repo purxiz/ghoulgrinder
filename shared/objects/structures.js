@@ -1,6 +1,3 @@
-var Protocol = require('./../protocol')
-const db = require('./../../server/database')
-
 class Structure {
   constructor(nId, dId, sType) {
     this.nId = nId
@@ -17,31 +14,21 @@ class Structure {
   }
 }
 
-var structure_list = new Map
+var structure_list = {}
 
-exports.interpret = (msg, dId) => {
-  switch (msg[0]) {
-    case Protocol.structures.BUILD:
-      addStructure(msg[1], msg[2], dId)
-      break
-    case Protocol.structures.DELETE:
-      delStructure(msg[1])
-      break
-    case Protocol.structures.RECIPE_SET:
-      setRecipe(msg[1], msg[2])
-      break
-    default:
+exports.addStructure = (insertId, nId, dId, sType) => {
+  let k = '' + insertId
+  if (!(k in structure_list)) {
+    structure_list[k] = new Structure(nId, dId, sType)
   }
 }
 
-addStructure = (insertId, nId, dId, sType) => {
-    structure_list.set(insertId, new Structure(nId, dId, sType))
+exports.delStructure = (sId) => {
+  let k = ''+sId
+  delete structure_list[k]
 }
 
-delStructure = (sId) => {
-    structure_list.delete(sId)
-}
-
-setRecipe = (sId, sRecipe) => {
-    structure_list.get(sId).setRecipe(sRecipe)
+exports.setRecipe = (sId, sRecipe) => {
+  let k = ''+ sId
+  structure_list[k].setRecipe(sRecipe)
 }

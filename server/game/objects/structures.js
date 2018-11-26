@@ -36,7 +36,7 @@ addStructure = (nId, dId, sType) => {
 delStructure = (sId, dId) => {
   //TODO: check dId owns structure
   console.log('removing structure ' + sId)
-  db.connection.query('DELETE FROM structures WHERE sId=' + connection.escape(sId), (err, res, fields) => {
+  db.connection.query('DELETE FROM structures WHERE sId=' + db.connection.escape(sId), (err, res, fields) => {
     if (err) {
       return false
     }
@@ -47,7 +47,7 @@ delStructure = (sId, dId) => {
 setRecipe = (sId, sRecipe, dId) => {
   //TODO: check dId owns structure
   console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
-  db.connection.query('UPDATE TABLE structures SET sRecipe=' + connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
+  db.connection.query('UPDATE TABLE structures SET sRecipe=' + db.connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
     if (err) {
       return false
     }
