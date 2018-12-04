@@ -30,9 +30,9 @@ randomString = (length) => {
 //accounts
 insertable = []
 for (let i = 0; i < num_entries; i++) {
-  insertable.push([randomString(10), randomString(20)])
+  insertable.push([randomString(10), randomString(10), randomString(20)])
 }
-connection.query('INSERT INTO accounts (aEmail, aPassword) VALUES ?', [insertable], (err, res, fields) => {
+connection.query('INSERT INTO accounts (aUsername, aEmail, aPassword) VALUES ?', [insertable], (err, res, fields) => {
   if (err) {
     console.log(err)
   }

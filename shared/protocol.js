@@ -1,6 +1,6 @@
 exports.protocol = Object.freeze({
   //User Related
-  'USER_ID' : 1
+  ADD_USER: 1  //[1, aUsername, aEmail, aPassword]
 })
 
 exports.vehicles = Object.freeze({

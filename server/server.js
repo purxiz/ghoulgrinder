@@ -7,6 +7,11 @@ const loader = require('./game/object_loader')
 const structures = require('./../shared/objects/structures')
 const vehicles = require('./../shared/objects/vehicles')
 
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 const WebSocket = require('express-ws')
 WebSocket(app)

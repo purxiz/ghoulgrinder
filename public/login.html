@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!--
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+-->
+</head>
+
+<body>
+
+  <script src=js/login.js></script>
+
+  <div class="login-page">
+    <div class="form">
+        <form class="register-form">
+
+          Create a new account</p>
+
+          <input type="text" placeholder="username" id="username" name="username" required>
+          <input type="email" placeholder="email address" id="email" name="email" required>
+          <input type="password" placeholder="password" id="password" name="password" required>
+          <input type="password" placeholder="confirm password" id="confirm_password" name="password" required>
+          <button class="submit" name="submit" type="submit" value="new user" onclick="validatePassword()">create</button>
+          <p class="message">Already registered? <a href="#login">Sign In</a></p>
+        </form>
+        <form class="login-form">
+
+          Sign in</p>
+
+          <input type="text" placeholder="username" id="login-username" name="username" required>
+          <input type="password" placeholder="password" id="login-password" name="password" required>
+          <button class="submit" name="submit" type="submit" value="login" onclick="login()">login</button>
+          <p class="message">Not registered? <a href="#login">Create an account</a></p>
+        </form>
+    </div>
+  </div>
+</body>
+
+</html>
