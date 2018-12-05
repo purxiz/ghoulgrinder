@@ -19,7 +19,7 @@ var vehicle_list = {}
 
 exports.exists = (vId) => {
   let k = '' + vId
-  return (vId in vehicle_list) 
+  return (k in vehicle_list) 
 }
 
 exports.addVehicle = (insertId, nId, dId, vType) => {
@@ -29,7 +29,6 @@ exports.addVehicle = (insertId, nId, dId, vType) => {
 }
 
 exports.bulkAddVehicle = (vehicles) => {
-  console.log("I was called")
   for(let i = 0, len = vehicles.length; i < len; ++i){
     this.addVehicle(vehicles[i][0], vehicles[i][1], vehicles[i][2], vehicles[i][3])
   }

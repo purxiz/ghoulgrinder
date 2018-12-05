@@ -35,3 +35,13 @@ exports.delVehicle = (nId, vId) => {
   let l = '' + vId
   delete node_list[k].vehicles[l]
 }
+
+exports.addStructure = (nId, structure) => {
+  let k = '' + nId
+  node_list[k].structure = structure
+}
+
+exports.delStructure = (nId) => {
+  let k = ''+nId
+  delete node_list[k].structure
+}

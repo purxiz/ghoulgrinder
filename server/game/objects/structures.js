@@ -35,22 +35,27 @@ addStructure = (nId, dId, sType) => {
 
 delStructure = (sId, dId) => {
   //TODO: check dId owns structure
-  console.log('removing structure ' + sId)
-  db.connection.query('DELETE FROM structures WHERE sId=' + db.connection.escape(sId), (err, res, fields) => {
-    if (err) {
-      return false
-    }
-    structures.delStructure(sId)
-  })
+  if (structures.exists(sId)) {
+    console.log('removing structure ' + sId)
+    db.connection.query('DELETE FROM structures WHERE sId=' + db.connection.escape(sId), (err, res, fields) => {
+      if (err) {
+        return false
+      }
+      structures.delStructure(sId)
+    })
+  }
 }
 
 setRecipe = (sId, sRecipe, dId) => {
   //TODO: check dId owns structure
-  console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
-  db.connection.query('UPDATE TABLE structures SET sRecipe=' + db.connection.escape(sRecipe) + 'WHERE sId=' + connection.escape(sId), (err, res, fields) => {
-    if (err) {
-      return false
-    }
-    structures.setRecipe(sid, sRecipe)
-  })
+  if (structures.exists(sId)) {
+    console.log('setting recipe to type ' + sRecipe + ' at structure ' + sId)
+    db.connection.query('UPDATE structures SET sRecipe=' + db.connection.escape(sRecipe) + ' WHERE sId=' + db.connection.escape(sId), (err, res, fields) => {
+      if (err) {
+        console.log(err)
+        return false
+      }
+      structures.setRecipe(sId, sRecipe)
+    })
+  }
 }
