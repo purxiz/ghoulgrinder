@@ -1,3 +1,4 @@
+//PASSWORD MATCHING
 function validatePassword(form) {
   if(form.passphrase.value != form.confirm_passphrase.value) {
     confirm_passphrase.setCustomValidity('passwords must match');
@@ -7,6 +8,7 @@ function validatePassword(form) {
   }
 }
 
+//LOGIN
 function login(form) {
   let userPostRequest = new XMLHttpRequest();
   userPostRequest.open("POST", "http://localhost:3000/api/login/authenticate");
@@ -23,8 +25,8 @@ function login(form) {
   userPostRequest.send(login);
 }
 
+//REGISTER
 function PostNewUser(username, email, password) {
-  console.log('post new user called');
   let userPostRequest = new XMLHttpRequest();
   userPostRequest.open("POST", "http://localhost:3000/api/login/register");
   let user = JSON.stringify({
@@ -35,13 +37,15 @@ function PostNewUser(username, email, password) {
   userPostRequest.setRequestHeader("Content-type", "application/json");
   userPostRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-   // TODO implement remaining error checking messages and switch from alerts to printing text
       let response = JSON.parse(this.response);
+      console.log(response)
     }
   }
   userPostRequest.send(user);
 }
 
+
+//COOKIES
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

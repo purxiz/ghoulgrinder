@@ -14,6 +14,7 @@ router.use(function(req, res, next) {
 
 });
 
+//LOGIN
 router.route('/authenticate')
   .post(function(req, res) {
     console.log('searching for user ' + req.body.username)
@@ -32,25 +33,35 @@ router.route('/authenticate')
     res.json( { message: 'user found' } );
 });
 
+//REGISTER
 router.route('/register')
   .post(function(req, res) { //create a new user
-    console.log('adding user ' + req.body.username + ' to accounts')
     let insertable = {
       aUsername: req.body.username,
       aPassword: req.body.password,
       aEmail: req.body.email
     }
+    userFound = false;
 
-
-  
-    db.connection.query('INSERT INTO accounts SET ?', insertable, (err, res, fields) => {
+    db.connection.query('SELECT * FROM accounts WHERE aUsername = ?', req.body.username, (err, res, fields) => {
       if (err) {
         console.log("database error")
         return false
       }
-      //structure_list.set(res.insertId, new Structure(nId, dId, sType))
-    })
-    res.json( { message: 'user created' } );
+      res.forEach(element => {
+        userFound = true;
+      });
+      if(!userFound) {
+        console.log('adding user ' + req.body.username + ' to accounts')
+        db.connection.query('INSERT INTO accounts SET ?', insertable, (err, res, fields) => {
+          if (err) {
+            console.log("database error")
+            return false
+          }
+        })
+      }
+    });
+      //res.json( { message: 'username already exists' } );
 });
     
 
