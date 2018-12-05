@@ -9,7 +9,7 @@ const db = require('./../../server/database')
 
 router.use(function(req, res, next) {
 
-	console.log('API request has been received ' + req.method + req.url);
+	console.log('\nAPI request has been received ' + req.method + req.url);
 	next();
 
 });
@@ -20,17 +20,26 @@ router.route('/authenticate')
     console.log('searching for user ' + req.body.username)
     //let insertable = req.body.username
     
-    db.connection.query('SELECT * FROM accounts WHERE aUsername = ?', req.body.username, (err, res, fields) => {
+    db.connection.query('SELECT * FROM accounts WHERE aUsername = ?', req.body.username, (err, results, fields) => {
       if (err) {
         console.log("database error")
         return false
       }
-      res.forEach(element => {
-        console.log(element.aUsername)
+      results.forEach(element => {
+        console.log('found ' + element.aUsername)
+
+        if (req.body.password == element.aPassword){
+          console.log('passwords match')
+          res.status(200).json( { message: 'match' } );
+        }
+        else {
+          console.log('passwords do not match')
+          res.status(200).json( { message: 'noMatch' } );
+        }
+
       });
 
     });
-    res.json( { message: 'user found' } );
 });
 
 //REGISTER
@@ -43,12 +52,12 @@ router.route('/register')
     }
     userFound = false;
 
-    db.connection.query('SELECT * FROM accounts WHERE aUsername = ?', req.body.username, (err, res, fields) => {
+    db.connection.query('SELECT * FROM accounts WHERE aUsername = ?', req.body.username, (err, results, fields) => {
       if (err) {
         console.log("database error")
         return false
       }
-      res.forEach(element => {
+      results.forEach(element => {
         userFound = true;
       });
       if(!userFound) {
@@ -60,8 +69,10 @@ router.route('/register')
           }
         })
       }
+      else {
+        res.json( { message: 'username already exists' } );
+      }
     });
-      //res.json( { message: 'username already exists' } );
 });
     
 

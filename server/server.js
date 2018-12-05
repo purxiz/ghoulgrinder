@@ -13,11 +13,12 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(cors())
 app.options('*', cors())
 
 app.use(function(req, res, next) {
 
-	console.log('API request has been received ' + req.method + req.url);
+	//console.log('\nAPI request has been received ' + req.method + req.url);
 	next();
 
 });
