@@ -29,7 +29,7 @@ addStructure = (nId, dId, sType) => {
       console.log(err)
       return false
     }
-    structures.addStructure(insertId, nId, dId, sType)
+    structures.addStructure(res.insertId, nId, dId, sType)
   })
 }
 

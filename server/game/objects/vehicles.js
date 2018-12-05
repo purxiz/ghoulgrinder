@@ -36,29 +36,30 @@ addVehicle = (nId, vType, dId) => {
 }
 
 delVehicle = (vId, dId) => {
-  //TODO: check vId
-  console.log('removing vehicle ' + vId)
-  db.connection.query('DELETE FROM vehicles WHERE vId=' + db.connection.escape(vId), (err, res, fields) => {
-    if (err) {
-      return false
-    }
-    vehicles.delVehicle(vId, dId)
-  })
+  //TODO: check dId
+  if (vehicles.exists(vId)) {
+    console.log('removing vehicle ' + vId)
+    db.connection.query('DELETE FROM vehicles WHERE vId=' + db.connection.escape(vId), (err, res, fields) => {
+      if (err) {
+        return false
+      }
+      vehicles.delVehicle(vId, dId)
+    })
+  }
 }
 
 setRoute = (vId, msg, dId) => {
   //TODO: recursively insert route commands
-  console.log('creating route for vehicle ' + vId) 
+  console.log('creating route for vehicle ' + vId)
   let insertable = []
-  console.log(insertable)
-  for(let i = 2, j = msg.length; i < j; ++i) {
-    insertable.push([vId, i-2, 0, msg[i][0], msg[i][1]])
-    console.log(insertable[i-2])
+  for (let i = 2, j = msg.length; i < j; ++i) {
+    insertable.push([vId, i - 2, 0, msg[i][0], msg[i][1]])
   }
   db.connection.query('INSERT INTO route_steps (vId, rsStep, rsProgress, rsStartNode, rsEndNode) VALUES ?', [insertable], (err, res, fields) => {
-    if(err) {
+    if (err) {
       console.log(err)
       return false
     }
+    vehicles.setRoute(msg)
   })
 }

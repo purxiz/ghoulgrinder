@@ -1,0 +1,12 @@
+{
+  "name" : "Cart",
+  "vId" : 1,
+  "mults" : [ 1, 1, 0, 0, 1, 1, 1 ],
+  "description" : "The cart is the most basic unit of transport in the game.",
+  "attributes" : {
+    "attr1" : "--wasteland",
+    "attr2" : "--Forest",
+    "attr3" : "xLake",
+    "attr4" : "xSky"
+  }
+}
