@@ -6,7 +6,8 @@ CREATE TABLE accounts (
   aUsername VARCHAR(40) NOT NULL,
   aEmail VARCHAR(40 )NOT NULL,
   aPassword VARCHAR(40) NOT NULL,
-  PRIMARY KEY(aId)
+  PRIMARY KEY(aId),
+  UNIQUE (aUsername)
 );
 
 CREATE TABLE domains  (
