@@ -17,6 +17,11 @@ class Vehicle {
 }
 var vehicle_list = {}
 
+exports.exists = (vId) => {
+  let k = '' + vId
+  return (vId in vehicle_list) 
+}
+
 exports.addVehicle = (insertId, nId, dId, vType) => {
   let k = '' + insertId
   vehicle_list[k] = new Vehicle(nId, dId, vType)
@@ -33,7 +38,7 @@ exports.bulkAddVehicle = (vehicles) => {
 
 exports.delVehicle = (vId) => {
   let k = '' + vId
-  nodes.deleteVehicle(vehicle_list[vId].nId, vId)
+  nodes.delVehicle(vehicle_list[vId].nId, vId)
   delete vehicle_list[vId]
 }
 

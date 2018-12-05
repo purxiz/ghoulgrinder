@@ -11,6 +11,7 @@ const worldgen = require('./game/worldgen')
 
 worldgen.initialGen(1);
 loader.load(1)
+
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({ extended: true }));
