@@ -26,8 +26,9 @@ exports.addVehicle = (insertId, nId, dId, vType) => {
 exports.bulkAddVehicle = (vehicles) => {
   console.log("I was called")
   for(let i = 0, len = vehicles.length; i < len; ++i){
-    addVehicle(vehicles[i][0], vehicles[i][1], vehicles[i][2], vehicles[i][3])
+    this.addVehicle(vehicles[i][0], vehicles[i][1], vehicles[i][2], vehicles[i][3])
   }
+  console.log(vehicle_list)
 }
 
 exports.delVehicle = (vId) => {

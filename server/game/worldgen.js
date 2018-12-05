@@ -20,9 +20,10 @@ Point.prototype.toSqlString = function () {
   return 'POINT(' + this.x + ',' + this.y + ')';
 }
 
-exports.initialGen = () => {
+exports.initialGen = (dId) => {
   let insertable = {
-    cLocation: new Point(0, 0)
+    cLocation: new Point(0, 0),
+    dId: dId
   }
   db.connection.query('INSERT INTO chunks SET ?', insertable, (err, res, fields) => {
     if (err) {

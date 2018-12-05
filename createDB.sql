@@ -18,8 +18,10 @@ CREATE TABLE domains  (
 
 CREATE TABLE chunks (
   cId INT NOT NULL AUTO_INCREMENT,
+  dId INT NOT NULL,
   cLocation POINT NOT NULL,
-  PRIMARY KEY (cId)
+  PRIMARY KEY (cId),
+  FOREIGN KEY (dId) REFERENCES domains(dId)
 );
 
 CREATE TABLE nodes (
@@ -29,13 +31,6 @@ CREATE TABLE nodes (
   cId INT NOT NULL,
   PRIMARY KEY (nId),
   FOREIGN KEY (cId) REFERENCES chunks(cId)
-);
-
-CREATE TABLE chunk_views (
-  cId INT NOT NULL,
-  dId INT NOT NULL,
-  FOREIGN KEY (cId) REFERENCES chunks (cId),
-  FOREIGN KEY (dId) REFERENCES domains (dId)
 );
 
 CREATE TABLE vehicles (

@@ -5,8 +5,6 @@ var db = require('./../../database')
 
 exports.bulkAddNode = (nodes) => {
 
-  console.log(nodes)
-  console.log(db.connection.escape(nodes))
   db.connection.query('INSERT INTO nodes (nLocation, cId, nType) VALUES ?', [nodes], (err, res, fields) => {
     if (err) {
       console.log(err)
