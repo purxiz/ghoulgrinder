@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const cors = require('cors')
 
 const loader = require('./game/object_loader')
 
@@ -10,12 +11,29 @@ const worldgen = require('./game/worldgen')
 
 worldgen.initialGen(1);
 loader.load(1)
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.options('*', cors())
+
+app.use(function(req, res, next) {
+
+	console.log('API request has been received ' + req.method + req.url);
+	next();
+
+});
 
 const WebSocket = require('express-ws')
 WebSocket(app)
 
 app.ws('/echo', (ws, req) => {
   ws.id = 1
+  //called on websocket first open
+
+
+
   ws.on('message', (msg) => {
     console.log(ws.id)
     msg = JSON.parse(msg)
@@ -34,5 +52,9 @@ app.ws('/echo', (ws, req) => {
     console.log('WebSocket was closed')
   })
 })
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api/login', require('./routes/login'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

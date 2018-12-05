@@ -3,9 +3,11 @@ USE ghoulgrinder;
 
 CREATE TABLE accounts (
   aId INT NOT NULL AUTO_INCREMENT,
-  aEmail VARCHAR(40)NOT NULL,
+  aUsername VARCHAR(40) NOT NULL,
+  aEmail VARCHAR(40 )NOT NULL,
   aPassword VARCHAR(40) NOT NULL,
-  PRIMARY KEY(aId)
+  PRIMARY KEY(aId),
+  UNIQUE (aUsername)
 );
 
 CREATE TABLE domains  (
