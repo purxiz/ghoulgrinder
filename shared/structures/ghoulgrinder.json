@@ -1,6 +1,7 @@
 {
   "name" : "Ghoul Grinder",
   "sId" : 1,
+  "mults" : [ 3, 0, 3, 0, 5, 0, 3 ],
   "description" : "The GhoulGrinder is able to process ghouls into various different types of ghoul based items.",
   "attributes" : {
     "attr1" : "++wasteland",

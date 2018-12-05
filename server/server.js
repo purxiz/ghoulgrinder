@@ -6,7 +6,10 @@ const loader = require('./game/object_loader')
 
 const structures = require('./game/objects/structures')
 const vehicles = require('./game/objects/vehicles')
+const worldgen = require('./game/worldgen')
 
+loader.load_chunks(80)
+worldgen.initialGen();
 
 const WebSocket = require('express-ws')
 WebSocket(app)

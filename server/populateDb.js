@@ -1,4 +1,4 @@
-var num_entries = 1000;
+var num_entries = 10;
 var mysql = require('mysql')
 var connection = mysql.createConnection({
   socketPath: '/var/run/mysqld/mysqld.sock',
@@ -66,15 +66,26 @@ do_the_rest = () => {
   }
 
   generatePoint = () => {
-    return new Point(1, 1)
+    return new Point((Math.random() * 100) | 0, 1)
   }
 
   //nodes
   insertable_nodes = []
   for (let i = 0; i < num_entries; i++) {
-    insertable_nodes.push([(Math.random() * 100) | 0, generatePoint(), (Math.random() * 100) | 0])
+    insertable_nodes.push([(Math.random() * 100) | 0, generatePoint(), randomId()])
   }
-  connection.query('INSERT INTO nodes (nType, nLocation, nChunk) VALUES ?', [insertable_nodes], (err, res, fields) => {
+  connection.query('INSERT INTO nodes (nType, nLocation, cId) VALUES ?', [insertable_nodes], (err, res, fields) => {
+    if (err) {
+      console.log(err)
+    }
+  })
+
+  //chunk_views
+  insertable_chunkviews = []
+  for(let i = 0; i < num_entries; i++){
+    insertable_chunkviews.push([randomId(), randomId()])
+  }
+  connection.query('INSERT INTO chunk_views (dId, cId) VALUES ?', [insertable_chunkviews], (err, res, fields) => {
     if (err) {
       console.log(err)
     }

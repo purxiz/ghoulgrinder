@@ -16,12 +16,26 @@ CREATE TABLE domains  (
   FOREIGN KEY (aId) REFERENCES accounts(aId)
 );
 
+CREATE TABLE chunks (
+  cId INT NOT NULL AUTO_INCREMENT,
+  cLocation POINT NOT NULL,
+  PRIMARY KEY (cId)
+);
+
 CREATE TABLE nodes (
   nId INT NOT NULL AUTO_INCREMENT,
   nType INT NOT NULL,
   nLocation POINT NOT NULL,
-  nChunk INT NOT NULL,
-  PRIMARY KEY (nId)
+  cId INT NOT NULL,
+  PRIMARY KEY (nId),
+  FOREIGN KEY (cId) REFERENCES chunks(cId)
+);
+
+CREATE TABLE chunk_views (
+  cId INT NOT NULL,
+  dId INT NOT NULL,
+  FOREIGN KEY (cId) REFERENCES chunks (cId),
+  FOREIGN KEY (dId) REFERENCES domains (dId)
 );
 
 CREATE TABLE vehicles (
