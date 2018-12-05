@@ -20,6 +20,14 @@ function login(form) {
   userPostRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response);
+      if(response.message === "noMatch") {
+        alert('Password is incorrect');
+      }
+      if(response.message === "match") {
+        window.location.replace("/public/home.html")
+      }
+      
+      
     }
   }
   userPostRequest.send(login);
@@ -39,6 +47,7 @@ function PostNewUser(username, email, password) {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response);
       console.log(response)
+      alert(response)
     }
   }
   userPostRequest.send(user);
