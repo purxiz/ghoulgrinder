@@ -6,7 +6,7 @@ var db = require('./../database')
 
 const chunkSize = 25;
 
-exports.newChunk = (extremeX, extremeY) => {
+exports.newChunk = (cId) => {
 
 }
 
@@ -27,6 +27,7 @@ exports.initialGen = () => {
   db.connection.query('INSERT INTO chunks SET ?', insertable, (err, res, fields) => {
     if (err) {
       console.log(err)
+      return 0
     }
     let nodes = []
     let cId = res.insertId

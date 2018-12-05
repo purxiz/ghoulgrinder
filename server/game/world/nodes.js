@@ -15,6 +15,6 @@ exports.bulkAddNode = (nodes) => {
     for (let i = res.insertId, j = res.affectedRows + res.insertId, k = 0; i < j; ++i, ++k) {
       nodes[k].push(i)
     }
-
+    node.bulkAddNode(nodes)
   })
 }
