@@ -47,7 +47,7 @@ function PostNewUser(username, email, password) {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response);
       console.log(response)
-      alert(response)
+      alert(response.message)
     }
   }
   userPostRequest.send(user);
