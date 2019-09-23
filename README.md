@@ -40,4 +40,4 @@ CREATE USER 'ghoulgrinder'@'localhost' IDENTIFIED BY 'dev_secret';
 GRANT ALL PRIVILEGES ON ghoulgrinder . * TO 'ghoulgrinder'@'localhost';
 FLUSH PRIVILEGES;
 ```
-Do note we really shouldn't grant all privileges, but that's a better coding practice thing so I'm just an idiot.
+Do note we really shouldn't grant all privileges, but we can add more granular control as it becomes necessary
