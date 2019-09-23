@@ -1,4 +1,7 @@
 #### Ghoul Grinder
+Ghoul Grinder is an engine for developing a class of empire management style browser based games with database persistence.
+
+#### Requirement
 nodejs and npm  
 ```
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -    
